@@ -46,28 +46,59 @@
         </ul>
       </div>
       <div>
-        <button class="btn bg-[#facc15] text-[#15803d] rounded-full">
+        <button class="btn bg-[#facc15] text-[#15803d] border-0 rounded-full">
           Plant a Tree
         </button>
       </div>
     </div>
 
     <!-- Banner Section -->
-    <div class="banner-container flex justify-between bg-[#cff0dc]">
-      <div><img src="./assets/hero-leaf1.png" /></div>
-      <div class="text-center py-22">
+    <div class="banner-container grid grid-cols-3 bg-[#cff0dc]">
+      <div>
+        <img class="object-fill h-full w-auto" src="./assets/hero-leaf1.png" />
+      </div>
+      <div class="text-center py-20">
         <h1 class="text-3xl font-bold">Plant a Tree,Grow a Future</h1>
         <p class="text-[#1f2937] pt-2 pb-5">
           The Plant-A-Tree program allows to donate funds that are used for
-          reforestation projects. <br />Caring for trees and the environment is
-          the social responsibility of every individual.
+          reforestation projects. Caring for trees and the environment is the
+          social responsibility of every individual.
         </p>
 
         <button class="btn bg-[#facc15] text-[#15803d] rounded-full">
           Get Involved
         </button>
       </div>
-      <div><img src="./assets/hero-leaf2.png" /></div>
+      <div>
+        <img class="object-fill h-full w-auto" src="./assets/hero-leaf2.png" />
+      </div>
+    </div>
+
+    <!-- Campaign Section -->
+    <div class="campaign-container bg-[#dcfce7] py-3">
+      <h1 class="text-3xl text-center font-bold py-3">About the Campaign</h1>
+      <div class="campaign-section grid grid-cols-4 gap-2">
+        <div class="col-start-2">
+          <img
+            class="object-fill h-auto w-full rounded-sm"
+            src="./assets/about.png"
+          />
+        </div>
+        <div class="flex flex-col justify-center">
+          <div class="text-[#1f2937] text-sm">
+            Saving the planet involves understanding critical environmental
+            challenges and taking practical, informed actions to reduce our
+            impact and protect natural ecosystems for future generations.
+          </div>
+          <div class="text-[#1f2937] text-sm pl-6">
+            <ol class="list-disc">
+              <li>Plastic Pollution & Recycling Impact</li>
+              <li>Greenhouse Gas Emissions</li>
+              <li>Oxygen Production</li>
+            </ol>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
