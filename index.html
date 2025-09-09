@@ -33,28 +33,32 @@
   <body>
     <!-- Navbar section -->
     <div
-      class="nav-container flex justify-between items-center px-16 py-4 bg-[#15803d]"
+      class="nav-container grid items-center justify-between bg-[#15803d] px-16 py-4 md:grid-cols-9 lg:grid-cols-12"
     >
-      <div class="">
-        <h4 class="text-white text-xl">🌴Green Earth</h4>
+      <div class="md:col-start-2 lg:col-span-2 lg:col-start-2">
+        <h4 class="text-xl text-white">🌴Green Earth</h4>
       </div>
-      <div>
-        <ul class="flex text-white gap-4">
-          <li>About</li>
-          <li>Gallery</li>
-          <li>Plant a Tree</li>
-        </ul>
+      <div class="md:col-span-3 md:col-start-4 lg:col-span-4 lg:col-start-5">
+        <div class="md:flex gap-4 text-white py-2">
+          <div>About</div>
+          <div>Gallery</div>
+          <div>Plant a Tree</div>
+        </div>
       </div>
-      <div>
-        <button class="btn bg-[#facc15] text-[#15803d] border-0 rounded-full">
+      <div class="md:col-start-8 lg:col-span-2 lg:col-start-11">
+        <button
+          class="btn rounded-full border-0 bg-[#facc15] p-1 text-[#15803d]"
+        >
           Plant a Tree
         </button>
       </div>
     </div>
 
     <!-- Banner Section -->
-    <div class="banner-container grid grid-cols-3 bg-[#cff0dc]">
-      <div>
+    <div
+      class="banner-container grid md:grid-cols-3 sm:grid-cols-1 bg-[#cff0dc]"
+    >
+      <div class="hidden md:block">
         <img class="object-fill h-full w-auto" src="./assets/hero-leaf1.png" />
       </div>
       <div class="text-center py-20">
@@ -69,7 +73,7 @@
           Get Involved
         </button>
       </div>
-      <div>
+      <div class="hidden md:block">
         <img class="object-fill h-full w-auto" src="./assets/hero-leaf2.png" />
       </div>
     </div>
@@ -84,10 +88,13 @@
           <div id="category-container"></div>
         </div>
         <div class="col-span-6 col-start-4 px-2">
+          <div id="loader" class="flex justify-center mt-4">
+            <img class="rounded-full w-50" src="./assets/loader.gif" />
+          </div>
           <!-- trees card start -->
           <div
             id="tree-container"
-            class="grid md:grid-cols-2 lg:grid-cols-3 gap-3"
+            class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 hidden"
           ></div>
           <!-- Trees card end -->
         </div>
@@ -112,7 +119,7 @@
           <figure>
             <img
               id="card-image"
-              class="w-full h-[400px] object-cover rounded-xl"
+              class="w-full h-[300px] object-cover rounded-xl"
               src=""
               alt="tree"
             />
@@ -140,7 +147,9 @@
         </div>
         <div class="modal-action">
           <form method="dialog">
-            <button class="btn">Close</button>
+            <button class="btn rounded-lg bg-[#facc15] text-[#15803d] p-3">
+              Close
+            </button>
           </form>
         </div>
       </div>

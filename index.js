@@ -8,7 +8,20 @@ function removeCart(button) {
   button.parentElement.parentElement.remove();
 }
 
-function getAllTree() {
+function updateActiveButton(element) {
+  const categoryElements = document.getElementsByClassName("category-item");
+  for (const categoryElement of categoryElements) {
+    categoryElement.classList.remove("bg-[#15803d]", "text-white");
+  }
+  document
+    .getElementById("category-item-all")
+    .classList.remove("bg-[#15803d]", "text-white");
+  element.classList.remove("bg-[#dcfce7]");
+  element.classList.add("bg-[#15803d]", "text-white");
+}
+
+function getAllTree(element) {
+  updateActiveButton(element);
   updateTreeContainer("https://openapi.programming-hero.com/api/plants");
 }
 
@@ -32,18 +45,20 @@ function showModal(event) {
 }
 updateTreeContainer("https://openapi.programming-hero.com/api/plants");
 
-let categoryElement = `<div class="mb-2 py-1"><button onclick="getAllTree()" class="btn bg-[#dcfce7] border-0 drop-shadow-none" data-category-id="0">All Trees</button></div>`;
+let categoryElement = `<div class="mb-2 py-1"><div onclick="getAllTree(this)" id="category-item-all" class="text-white border-0 drop-shadow-none w-full p-2 rounded-sm bg-[#15803d]" data-category-id="0">All Trees</div></div>`;
 fetch("https://openapi.programming-hero.com/api/categories")
   .then((res) => res.json())
   .then((data) => {
     data.categories.map((category) => {
-      categoryElement += `<div class="mb-2 py-1"><button class="category-item btn bg-[#dcfce7] border-0 drop-shadow-none" data-category-id="${category.id}">${category.category_name}</button></div>`;
+      categoryElement += `<div class="mb-2 py-1"><div class="category-item bg-[#dcfce7] border-0 drop-shadow-none  w-full p-2 rounded-sm" data-category-id="${category.id}">${category.category_name}</div></div>`;
     });
     document.getElementById("category-container").innerHTML = categoryElement;
 
     const categoryElements = document.getElementsByClassName("category-item");
+
     for (const categoryElement of categoryElements) {
       categoryElement.addEventListener("click", function (event) {
+        updateActiveButton(event.target);
         updateTreeContainer(
           "https://openapi.programming-hero.com/api/category/" +
             categoryElement.getAttribute("data-category-id")
@@ -56,6 +71,8 @@ fetch("https://openapi.programming-hero.com/api/categories")
   });
 
 function updateTreeContainer(url) {
+  document.getElementById("loader").classList.remove("hidden");
+  document.getElementById("tree-container").classList.add("hidden");
   let treeElement = "";
   fetch(url)
     .then((res) => res.json())
@@ -116,6 +133,9 @@ function updateTreeContainer(url) {
             .catch((error) => console.log(error));
         });
       }
+
+      document.getElementById("loader").classList.add("hidden");
+      document.getElementById("tree-container").classList.remove("hidden");
     })
     .catch((error) => {
       console.log("Error: ", error);
