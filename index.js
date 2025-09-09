@@ -1,5 +1,19 @@
+function removeCart(button) {
+  console.log(button.parentElement.parentElement.querySelector(".cart-price"));
+  document.getElementById("total-price").innerHTML =
+    parseInt(document.getElementById("total-price").innerText) -
+    parseInt(
+      button.parentElement.parentElement.querySelector(".cart-price").innerText
+    );
+  button.parentElement.parentElement.remove();
+}
+function getAllTree() {
+  updateTreeContainer("https://openapi.programming-hero.com/api/plants");
+}
+
 updateTreeContainer("https://openapi.programming-hero.com/api/plants");
-let categoryElement = "";
+
+let categoryElement = `<div class="mb-2 py-1"><button onclick="getAllTree()" class="btn bg-[#dcfce7] border-0 drop-shadow-none" data-category-id="0">All Trees</button></div>`;
 fetch("https://openapi.programming-hero.com/api/categories")
   .then((res) => res.json())
   .then((data) => {
@@ -44,7 +58,7 @@ function updateTreeContainer(url) {
                 </p>
                 <div class="flex justify-between gap-3 my-2">
                   <div class="bg-[#dcfce7] rounded-xl px-2 py-1 text-sm">${plant.category}</div>
-                  <div class="font-bold">$${plant.price}</div>
+                  <div class="price font-bold">$${plant.price}</div>
                 </div>
                 <div class="">
                   <button class="card-btn btn bg-[#15803d] w-full rounded-full" data-plant-id="${plant.id}">Add to Cart</button>
@@ -58,23 +72,25 @@ function updateTreeContainer(url) {
       const cardBtns = document.getElementsByClassName("card-btn");
       for (const cardButton of cardBtns) {
         cardButton.addEventListener("click", function (event) {
-          console.log("plant id " + cardButton.getAttribute("data-plant-id"));
           fetch(
             "https://openapi.programming-hero.com/api/plant/" +
               cardButton.getAttribute("data-plant-id")
           )
             .then((res) => res.json())
             .then((data) => {
-              console.log(document.getElementById("cart-container"));
-              document.getElementById("cart-container").innerHTML += `<div
+              document.getElementById("cart-container").innerHTML += `
+              <div
               class="grid-cols-2 bg-[#F0FDF4] p-2 rounded-sm flex justify-between mb-1"
-            >
+              >
               <div class="grid-rows-2">
                 <div>${data.plants.name}</div>
-                <div>${data.plants.price} x 1</div>
+                <div><span class="cart-price">${data.plants.price}</span> x 1</div>
               </div>
-              <div>x</div>
+              <div class="remove-cart-btn flex justify-center items-center"><button onclick="removeCart(this)" class="btn btn-xs bg-[#F0FDF4] border-0"><i class="fa-solid fa-xmark"></i></button></div>
             </div>`;
+              document.getElementById("total-price").innerHTML =
+                parseInt(document.getElementById("total-price").innerText) +
+                data.plants.price;
             })
             .catch((error) => console.log(error));
         });
