@@ -7,10 +7,29 @@ function removeCart(button) {
     );
   button.parentElement.parentElement.remove();
 }
+
 function getAllTree() {
   updateTreeContainer("https://openapi.programming-hero.com/api/plants");
 }
 
+function showModal(event) {
+  const plantId = event.target.getAttribute("data-plant-id");
+  fetch("https://openapi.programming-hero.com/api/plant/" + plantId)
+    .then((res) => res.json())
+    .then((data) => {
+      tree_details_modal.showModal();
+      document.getElementById("card-image").src = data.plants.image;
+      document.getElementById("card-title").innerText = data.plants.name;
+      document.getElementById("card-description").innerText =
+        data.plants.description;
+      document.getElementById("card-category").innerText = data.plants.category;
+      document.getElementById("card-price").innerText = "$" + data.plants.price;
+      document
+        .getElementById("add-to-cart-btn")
+        .setAttribute("data-plant-id", data.plants.id);
+    })
+    .catch((error) => console.log(error));
+}
 updateTreeContainer("https://openapi.programming-hero.com/api/plants");
 
 let categoryElement = `<div class="mb-2 py-1"><button onclick="getAllTree()" class="btn bg-[#dcfce7] border-0 drop-shadow-none" data-category-id="0">All Trees</button></div>`;
@@ -46,6 +65,8 @@ function updateTreeContainer(url) {
             <div class="card bg-white shadow-sm p-3">
               <figure>
                 <img
+                data-plant-id="${plant.id}"
+                onclick="showModal(event)"
                 class="w-full h-[200px] object-cover rounded-xl"
                   src="${plant.image}"
                   alt="tree"
